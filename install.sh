@@ -8,10 +8,12 @@ if test -f "$(pwd)/helper.sh"; then
   baseurl=$(pwd)
   . "${baseurl}/helper.sh"
   . "${baseurl}/programs.sh"
+  _install_mode='\e[32mlocal\e[m'
 else
   baseurl='https://onlurking-dotfiles.surge.sh'
   source <(curl -s "${baseurl}/helper.sh")
   source <(curl -s "${baseurl}/programs.sh")
+  _install_mode='\e[5m\e[31mremote \e[m'
 fi
 
 init && requirements
@@ -57,11 +59,6 @@ while [[ $# -gt 0 ]]; do
 done
 
 if [ $usage ]; then
-  if test "$(basename "$0")" = "bash"; then
-    _install_mode='\e[5m\e[31mremote \e[m'
-  else
-    _install_mode='\e[32mlocal\e[m'
-  fi
   printf " installation mode: ${_install_mode}
 
  \\e[32musage\\e[m:
