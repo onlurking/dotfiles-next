@@ -14,44 +14,55 @@ else
   source <(curl -s "${baseurl}/programs.sh")
 fi
 
-init && requirements 
+init && requirements
 
 while [[ $# -gt 0 ]]; do
-    case $1 in
-        -z| --zsh)
-            zsh=true;;
-        -p| --python)
-            python=true;;
-        -n| --node| --nodejs)
-            nodejs=true;;
-        -r| --ruby)
-            ruby=true;;
-        -g| --git)
-            golang=true;;
-        -go| --golang)
-            golang=true;;
-        -t| --tmux)
-            tmux=true;;
-        -e| --elixir)
-            elixir=true;;
-        -n| --neovim)
-            neovim=true;;
-        -pg| --postgres| --postgresql)
-            postgres=true;;
-        -h| --help)
-            usage=true;;
-        *) echo -e "Unknown options:' $1"
-    esac
-    shift
+  case $1 in
+    -z | --zsh)
+      zsh=true
+      ;;
+    -p | --python)
+      python=true
+      ;;
+    -n | --node | --nodejs)
+      nodejs=true
+      ;;
+    -r | --ruby)
+      ruby=true
+      ;;
+    -g | --git)
+      golang=true
+      ;;
+    -go | --golang)
+      golang=true
+      ;;
+    -t | --tmux)
+      tmux=true
+      ;;
+    -e | --elixir)
+      elixir=true
+      ;;
+    -n | --neovim)
+      neovim=true
+      ;;
+    -pg | --postgres | --postgresql)
+      postgres=true
+      ;;
+    -h | --help)
+      usage=true
+      ;;
+    *) echo -e "Unknown options:' $1" ;;
+  esac
+  shift
 done
 
-if [ $usage ];then
+if [ $usage ]; then
   if test "$(basename "$0")" = "bash"; then
-    _install_mode="\\e[5m\\e[31mremote \\e[m"
+    _install_mode='\e[5m\e[31mremote \e[m'
   else
-    _install_mode="\\e[32mlocal\\e[m"
+    _install_mode='\e[32mlocal\e[m'
   fi
-    printf " installation mode: ${_install_mode}
+  printf " installation mode: ${_install_mode}
 
  \\e[32musage\\e[m:
     -h | --help \t show this help text
@@ -59,6 +70,6 @@ if [ $usage ];then
 \n" | expand -t 20
 fi
 
-if [ $zsh ];then
-    install_zsh
+if [ $zsh ]; then
+  install_zsh
 fi

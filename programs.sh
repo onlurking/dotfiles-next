@@ -1,63 +1,61 @@
-load_programs()
-{
+load_programs() {
 
-	install_zsh()
-  {
-		if ! test -x "$(command -v zsh)"; then
-			if test -x "$(command -v apt-get)"; then
-			  echo -e "\\e[32m[ zsh ]\\e[m not found, installing"
-			  sudo apt-get install -y zsh > /dev/null 2>&1
-			fi
+  install_zsh() {
+    if ! test -x "$(command -v zsh)"; then
+      if test -x "$(command -v apt-get)"; then
+        echo -e '\e[32m[ zsh ]\e[m not found, installing'
+        sudo apt-get install -y zsh > /dev/null 2>&1
+      fi
 
       if test -x "$(command -v apk)"; then
-        echo -e "\\e[32m[ git ]\\e[m not found, installing"
+        echo -e '\e[32m[ git ]\e[m not found, installing'
         sudo apk add zsh > /dev/null 2>&1
       fi
 
-			if test -x "$(command -v pacman)"; then
-			  echo -e "\\e[32m[ zsh ]\\e[m not found, installing"
-			  sudo pacman -S zsh --noconfirm > /dev/null 2>&1
-			fi
+      if test -x "$(command -v pacman)"; then
+        echo -e '\e[32m[ zsh ]\e[m not found, installing'
+        sudo pacman -S zsh --noconfirm > /dev/null 2>&1
+      fi
 
-			if test -x "$(command -v brew)"; then
-			  echo -e "\\e[32m[ zsh ]\\e[m not found, installing"
-			  brew install zsh > /dev/null 2>&1
-			fi
-		fi
+      if test -x "$(command -v brew)"; then
+        echo -e '\e[32m[ zsh ]\e[m not found, installing'
+        brew install zsh > /dev/null 2>&1
+      fi
+    fi
 
-		if test ! -d "$HOME/.oh-my-zsh"; then
-		        echo -e "\\e[32m[ oh-my-zsh ]\\e[m clonning repository"
-		        git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh" --quiet > /dev/null
-            echo -e "\\e[32m[ oh-my-zsh ]\\e[m installing plugins"
-            curl -fsLo "$HOME/.oh-my-zsh/themes/lambda-mod.zsh-theme" https://cdn.rawgit.com/onlurking/dotfiles/master/config/lambda-mod.zsh-theme
-            git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting" --quiet > /dev/null
-            git clone git://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions" --quiet > /dev/null
-	    else
-	      if ask "\\e[32m[ oh-my-zsh ]\\e[m configs found, overwrite?" Y; then
-	          rm -rf "$HOME/.oh-my-zsh"
-	          git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh" --quiet > /dev/null
-            echo -e "\\e[32m[ oh-my-zsh ]\\e[m installing plugins"
-            curl -fsLo "$HOME/.oh-my-zsh/themes/lambda-mod.zsh-theme" https://cdn.rawgit.com/onlurking/dotfiles/master/config/lambda-mod.zsh-theme
-            git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting" --quiet > /dev/null
-            git clone git://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions" --quiet > /dev/null
-	      fi
-		fi
+    if test ! -d "$HOME/.oh-my-zsh"; then
+      echo -e '\e[32m[ oh-my-zsh ]\e[m clonning repository'
+      git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh" --quiet > /dev/null
+      echo -e '\e[32m[ oh-my-zsh ]\e[m installing plugins'
+      curl -fsLo "$HOME/.oh-my-zsh/themes/lambda-mod.zsh-theme" https://cdn.rawgit.com/onlurking/dotfiles/master/config/lambda-mod.zsh-theme
+      git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting" --quiet > /dev/null
+      git clone git://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions" --quiet > /dev/null
+    else
+      if ask '\e[32m[ oh-my-zsh ]\e[m configs found, overwrite?' Y; then
+        rm -rf "$HOME/.oh-my-zsh"
+        git clone git://github.com/robbyrussell/oh-my-zsh.git "$HOME/.oh-my-zsh" --quiet > /dev/null
+        echo -e '\e[32m[ oh-my-zsh ]\e[m installing plugins'
+        curl -fsLo "$HOME/.oh-my-zsh/themes/lambda-mod.zsh-theme" https://cdn.rawgit.com/onlurking/dotfiles/master/config/lambda-mod.zsh-theme
+        git clone git://github.com/zsh-users/zsh-syntax-highlighting.git "$HOME/.oh-my-zsh/plugins/zsh-syntax-highlighting" --quiet > /dev/null
+        git clone git://github.com/zsh-users/zsh-autosuggestions.git "$HOME/.oh-my-zsh/plugins/zsh-autosuggestions" --quiet > /dev/null
+      fi
+    fi
 
-		if test -f $HOME/.zshrc; then
-		    if ask "\\e[32m[ .zshrc ]\\e[m found, make backup?" Y; then
-		          cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
-		          echo -e "\\e[32m[ .zshrc ]\\e[m saved to .zshrc.bak"
-		    fi
-		fi
+    if test -f $HOME/.zshrc; then
+      if ask '\e[32m[ .zshrc ]\e[m found, make backup?' Y; then
+        cp "$HOME/.zshrc" "$HOME/.zshrc.bak"
+        echo -e '\e[32m[ .zshrc ]\e[m saved to .zshrc.bak'
+      fi
+    fi
 
-		if test -f $HOME/.profile; then
-		    if ask "\\e[32m[ .profile ]\\e[m found, make backup?" Y; then
-		          cp "$HOME/.profile" "$HOME/.profile.bak"
-		          echo -e "\\e[32m[ .profile ]\\e[m saved to .profile.bak"
-		    fi
-		fi
+    if test -f $HOME/.profile; then
+      if ask '\e[32m[ .profile ]\e[m found, make backup?' Y; then
+        cp "$HOME/.profile" "$HOME/.profile.bak"
+        echo -e '\e[32m[ .profile ]\e[m saved to .profile.bak'
+      fi
+    fi
 
-cat << 'EOF' > $HOME/.zshrc
+    cat << 'EOF' > $HOME/.zshrc
 export ZSH=$HOME/.oh-my-zsh
 ZSH_THEME="lambda-mod"
 VISUAL="nvim"
@@ -84,15 +82,15 @@ source $HOME/.profile
 source $ZSH/oh-my-zsh.sh
 EOF
 
-mkdir -p $HOME/.local/bin
-cat << 'EOF' > $HOME/.profile
+    mkdir -p $HOME/.local/bin
+    cat << 'EOF' > $HOME/.profile
 export PATH=$PATH:$HOME/.local/bin
 export ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE="fg=8"
 
 export TERM="xterm-256color"
 EOF
 
-cat << 'EOF' > $HOME/.oh-my-zsh/themes/lambda-mod.zsh-theme
+    cat << 'EOF' > $HOME/.oh-my-zsh/themes/lambda-mod.zsh-theme
 #!/usr/bin/env zsh
 
 local LAMBDA="%(?,%{$fg_bold[green]%}λ,%{$fg_bold[red]%}λ)"
@@ -154,42 +152,41 @@ ZSH_THEME_GIT_PROMPT_SHA_BEFORE=" %{$fg_bold[white]%}[%{$fg_bold[blue]%}"
 ZSH_THEME_GIT_PROMPT_SHA_AFTER="%{$fg_bold[white]%}]"
 EOF
 
-		echo -e "\\e[32m[ zsh ]\\e[m changing user shell to zsh"
-		chsh -s $(which zsh) $USER
-		echo -e "\\e[32m[ zsh ]\\e[m shell changed, please logout or reboot to take effect"
-	}
+    echo -e '\e[32m[ zsh ]\e[m changing user shell to zsh'
+    chsh -s $(which zsh) $USER
+    echo -e '\e[32m[ zsh ]\e[m shell changed, please logout or reboot to take effect'
+  }
 
-	function install_docker()
-  {
-		if ! test -x "$(command -v docker)"; then
+  function install_docker() {
+    if ! test -x "$(command -v docker)"; then
 
-			if test -x "$(command -v apt-get)"; then
-			  echo -e "\\e[32m[ docker ]\\e[m not found, installing"
-			  sudo apt-get install -y docker docker-compose > /dev/null 2>&1
-			fi
+      if test -x "$(command -v apt-get)"; then
+        echo -e '\e[32m[ docker ]\e[m not found, installing'
+        sudo apt-get install -y docker docker-compose > /dev/null 2>&1
+      fi
 
-			if test -x "$(command -v pacman)"; then
-			  echo -e "\\e[32m[ docker ]\\e[m not found, installing"
-			  sudo pacman -S docker docker-compose --noconfirm > /dev/null 2>&1
-			fi
+      if test -x "$(command -v pacman)"; then
+        echo -e '\e[32m[ docker ]\e[m not found, installing'
+        sudo pacman -S docker docker-compose --noconfirm > /dev/null 2>&1
+      fi
 
-			if test -x "$(command -v brew)"; then
-			  echo -e "\\e[32m[ docker ]\\e[m not found, installing"
-			  brew install docker docker-compose> /dev/null 2>&1
-			fi
+      if test -x "$(command -v brew)"; then
+        echo -e '\e[32m[ docker ]\e[m not found, installing'
+        brew install docker docker-compose > /dev/null 2>&1
+      fi
 
-		fi
+    fi
 
-		echo -e "\\e[32m[ docker ]\\e[m starting docker service"
-		sudo systemctl enable --now docker.service > /dev/null 2>&1
+    echo -e '\e[32m[ docker ]\e[m starting docker service'
+    sudo systemctl enable --now docker.service > /dev/null 2>&1
 
-		echo -e "\\e[32m[ docker ]\\e[m configuring docker"
-		sudo groupadd docker > /dev/null 2>&1
-		sudo gpasswd -a $USER docker > /dev/null 2>&1
+    echo -e '\e[32m[ docker ]\e[m configuring docker'
+    sudo groupadd docker > /dev/null 2>&1
+    sudo gpasswd -a $USER docker > /dev/null 2>&1
 
-		echo -e "\\e[32m[ docker ]\\e[m running docker hello-world test"
+    echo -e '\e[32m[ docker ]\e[m running docker hello-world test'
 
-newgrp docker << END
+    newgrp docker << END
 docker run hello-world
 
 if [ $? -eq 0 ]; then
@@ -198,24 +195,23 @@ else
     echo -e "\\e[32m[ docker ]\\e[m Docker installation failed"
 fi
 END
-}
+  }
 
-  install_nvim()
-  {
+  install_nvim() {
     if ! [ -x "$(command -v nvim)" ]; then
 
       if [ -x "$(command -v apt-get)" ]; then
-        echo -e "\\e[32m[ neovim ]\\e[m not found, installing"
+        echo -e '\e[32m[ neovim ]\e[m not found, installing'
         sudo apt-get install -y neovim > /dev/null 2>&1
       fi
 
       if [ -x "$(command -v pacman)" ]; then
-        echo -e "\\e[32m[ neovim ]\\e[m not found, installing"
+        echo -e '\e[32m[ neovim ]\e[m not found, installing'
         sudo pacman -S neovim --noconfirm > /dev/null 2>&1
       fi
 
       if [ -x "$(command -v brew)" ]; then
-        echo -e "\\e[32m[ nvim ]\\e[m not found, installing"
+        echo -e '\e[32m[ nvim ]\e[m not found, installing'
         brew install neovim > /dev/null 2>&1
       fi
     fi
@@ -227,68 +223,66 @@ END
 
   }
 
-	install_nodejs()
-  {
-	if ! [ -x "$(command -v node)" ]; then
+  install_nodejs() {
+    if ! [ -x "$(command -v node)" ]; then
 
-		if [ -x "$(command -v apt-get)" ]; then
-		  echo -e "\\e[32m[ node ]\\e[m not found, installing"
-		  sudo apt-get install -y node npm yarn > /dev/null 2>&1
-		fi
+      if [ -x "$(command -v apt-get)" ]; then
+        echo -e '\e[32m[ node ]\e[m not found, installing'
+        sudo apt-get install -y node npm yarn > /dev/null 2>&1
+      fi
 
-		if [ -x "$(command -v pacman)" ]; then
-		  echo -e "\\e[32m[ node ]\\e[m not found, installing"
-		  sudo pacman -S nodejs npm yarn --noconfirm > /dev/null 2>&1
-		fi
+      if [ -x "$(command -v pacman)" ]; then
+        echo -e '\e[32m[ node ]\e[m not found, installing'
+        sudo pacman -S nodejs npm yarn --noconfirm > /dev/null 2>&1
+      fi
 
-		if [ -x "$(command -v brew)" ]; then
-		  echo -e "\\e[32m[ node ]\\e[m not found, installing"
-		  brew install nodejs npm yarn > /dev/null 2>&1
-		fi
-	fi
+      if [ -x "$(command -v brew)" ]; then
+        echo -e '\e[32m[ node ]\e[m not found, installing'
+        brew install nodejs npm yarn > /dev/null 2>&1
+      fi
+    fi
 
-	mkdir -p "$HOME/.npm-packages"
-	npm set prefix "$HOME/.npm-packages" > /dev/null 2>&1
+    mkdir -p "$HOME/.npm-packages"
+    npm set prefix "$HOME/.npm-packages" > /dev/null 2>&1
 
-cat << 'EOF' >> $HOME/.profile
+    cat << 'EOF' >> $HOME/.profile
 export PATH=$PATH:$HOME/.npm-packages/bin
 EOF
 
-	if [ -x "$(command -v yarn)" ]; then
-	  yarn config set prefix "$HOME/.npm-packages" > /dev/null 2>&1
-	fi
+    if [ -x "$(command -v yarn)" ]; then
+      yarn config set prefix "$HOME/.npm-packages" > /dev/null 2>&1
+    fi
 
-	}
+  }
 
-	install_golang()
-  {
-	if ! [ -x "$(command -v go)" ]; then
+  install_golang() {
+    if ! [ -x "$(command -v go)" ]; then
 
-		if [ -x "$(command -v apt-get)" ]; then
-		  echo -e "\\e[32m[ go ]\\e[m not found, installing"
-		  sudo apt-get install -y go > /dev/null 2>&1
-		fi
+      if [ -x "$(command -v apt-get)" ]; then
+        echo -e '\e[32m[ go ]\e[m not found, installing'
+        sudo apt-get install -y go > /dev/null 2>&1
+      fi
 
-		if [ -x "$(command -v pacman)" ]; then
-		  echo -e "\\e[32m[ go ]\\e[m not found, installing"
-		  sudo pacman -S go go-tools --noconfirm > /dev/null 2>&1
-		fi
+      if [ -x "$(command -v pacman)" ]; then
+        echo -e '\e[32m[ go ]\e[m not found, installing'
+        sudo pacman -S go go-tools --noconfirm > /dev/null 2>&1
+      fi
 
-		if [ -x "$(command -v brew)" ]; then
-		  echo -e "\\e[32m[ go ]\\e[m not found, installing"
-		  brew install go go-tools > /dev/null 2>&1
-		fi
+      if [ -x "$(command -v brew)" ]; then
+        echo -e '\e[32m[ go ]\e[m not found, installing'
+        brew install go go-tools > /dev/null 2>&1
+      fi
 
-	fi
+    fi
 
-	mkdir -p $HOME/.go
+    mkdir -p $HOME/.go
 
-cat << 'EOF' >> $HOME/.profile
+    cat << 'EOF' >> $HOME/.profile
 export GOPATH=$HOME/.go
 export PATH=$PATH:$HOME/.go/bin
 EOF
 
-	}
+  }
 
 }
 
